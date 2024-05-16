@@ -1,8 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomTextField extends StatefulWidget {
+class TextFieldPassword extends StatefulWidget {
   final String label;
   final Color textColor;
   final TextEditingController textEditingController;
@@ -16,10 +17,13 @@ class CustomTextField extends StatefulWidget {
   final void Function()? onTap;
   final bool required;
   final bool floatingLabel;
+
+  ///! ----- password logic
   final bool isViewPassword;
   final IconData? icon;
+  final void Function(bool value) onClickEye;
 
-  const CustomTextField({
+  const TextFieldPassword({
     super.key,
     required this.label,
     required this.textEditingController,
@@ -29,6 +33,7 @@ class CustomTextField extends StatefulWidget {
     this.obscureText = false,
     required this.validator,
     required this.onChanged,
+    required this.onClickEye,
     this.onTap,
     this.icon,
     this.required = false,
@@ -39,10 +44,10 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
+  _TextFieldPasswordState createState() => _TextFieldPasswordState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _TextFieldPasswordState extends State<TextFieldPassword> {
   @override
   void initState() {
     super.initState();
@@ -58,6 +63,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   void _handleFocusChange() {
     setState(() {});
   }
+
+  ///!
+  bool eyeClick = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +96,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
               readOnly: widget.isEnable,
               focusNode: widget.focusNode,
               maxLength: widget.maxLength,
-              maxLines: 2,
               expands: false,
               cursorColor: Colors.black,
               decoration: InputDecoration(
@@ -97,6 +104,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         widget.icon,
                         color: widget.focusNode.hasFocus ? Colors.black : Colors.grey,
                         size: 16,
+                      )
+                    : null,
+                suffixIcon: widget.isViewPassword
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            eyeClick = !eyeClick;
+                          });
+                          widget.onClickEye(eyeClick);
+                        },
+                        icon: eyeClick ? const Icon(FontAwesomeIcons.eyeSlash): const Icon(FontAwesomeIcons.eye),
+                        color: Colors.grey,
+                        iconSize: 16,
                       )
                     : null,
                 border: const OutlineInputBorder(),
@@ -119,6 +139,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               validator: widget.validator,
               onChanged: widget.onChanged,
               onTap: widget.onTap,
+              obscureText: widget.obscureText,
             ),
           ),
         ),
