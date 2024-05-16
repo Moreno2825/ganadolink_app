@@ -109,13 +109,12 @@ class _LoginPageState extends State<LoginPage> {
                       Column(
                         children: [
                           SizedBox(
-                            width: 380,
+                            width: myWidth,
                             child: Form(
                               key: formKeyA,
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    width: myWidth,
                                     child: CustomTextField(
                                       label: 'Correo',
                                       isEnable: false,
@@ -135,7 +134,6 @@ class _LoginPageState extends State<LoginPage> {
                                     height: 10,
                                   ),
                                   SizedBox(
-                                    width: myWidth,
                                     child: TextFieldPassword(
                                       label: 'Contraseña',
                                       isEnable: false,
@@ -151,8 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                       textEditingController: passwordController,
                                       validator: (text) {
-                                        return FormsValidate.inputString(
-                                            text, 'Especificar Contraseña');
+                                        return FormsValidate.password(text);
                                       },
                                       onChanged: (text) {},
                                     ),
