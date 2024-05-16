@@ -7,6 +7,7 @@ import 'package:ganadolink_app/components/text_field_password.dart';
 import 'package:ganadolink_app/utils/constant.dart';
 import 'package:ganadolink_app/utils/form_validate_functions.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
+import 'package:ganadolink_app/widgets/navbar_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -163,10 +164,13 @@ class _LoginPageState extends State<LoginPage> {
                                       label: 'Entrar',
                                       size: myWidth,
                                       onPressed: () {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const LoginPage(),
+                                            builder: (context) => const NavbarWidget(
+                                              routes: ['/Home', '/Catalogue', '/Users'],
+                                              icons: [Icons.home, Icons.folder, Icons.person],
+                                            ),
                                           ),
                                         );
                                       },
