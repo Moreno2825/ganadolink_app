@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ganadolink_app/components/custom_button.dart';
 import 'package:ganadolink_app/components/custom_text_field.dart';
@@ -97,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const Padding(
-                        padding: EdgeInsets.only(bottom: 10, left: 14, right: 10),
+                        padding:
+                            EdgeInsets.only(bottom: 10, left: 14, right: 10),
                         child: Text(
                           'Para mantener nuestra operación sin interrupciones, necesitaríamos que completes los datos necesarios.',
                           style: TextStyle(
@@ -143,9 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                                       isViewPassword: true,
                                       obscureText: obscureTextPassword,
                                       focusNode: passwordFocusNode,
-                                      onClickEye: (value){
+                                      onClickEye: (value) {
                                         setState(() {
-                                          obscureTextPassword = !obscureTextPassword;
+                                          obscureTextPassword =
+                                              !obscureTextPassword;
                                         });
                                       },
                                       textEditingController: passwordController,
@@ -167,9 +170,18 @@ class _LoginPageState extends State<LoginPage> {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const NavbarWidget(
-                                              routes: ['/Home', '/Catalogue', '/Users'],
-                                              icons: [Icons.home, Icons.folder, Icons.person],
+                                            builder: (context) => const  NavbarWidget(
+                                              routes: [
+                                                'Home',
+                                                'Catalogue',
+                                                'Users'
+                                              ],
+                                              icons: [
+                                                FontAwesomeIcons.house,
+                                                FontAwesomeIcons
+                                                    .solidFolderOpen,
+                                                FontAwesomeIcons.solidUser,
+                                              ],
                                             ),
                                           ),
                                         );
