@@ -11,10 +11,10 @@ class NavbarWidget extends StatefulWidget {
   final List<IconData> icons;
 
   const NavbarWidget({
-    Key? key,
+    super.key,
     required this.routes,
     required this.icons,
-  }) : super(key: key);
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,7 +23,6 @@ class NavbarWidget extends StatefulWidget {
 
 class _NavbarWidgetState extends State<NavbarWidget> {
   int _currentIndex = 0;
-  Color _shadowColor = kPrimaryColor.withOpacity(0.1);
 
   @override
   Widget build(BuildContext context) {
@@ -42,54 +41,50 @@ class _NavbarWidgetState extends State<NavbarWidget> {
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-          color: backgroundPale,
+          color: backGroundColor,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               widget.routes.length,
               (index) => Expanded(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = index;
-                        // Cambia el color de la sombra al tocar el ícono
-                        _shadowColor = kPrimaryColor.withOpacity(
-                            0.1); // Modificado el valor de opacidad
-                      });
-                    },
-                    onTapCancel: () {
-                      // Restaura el color de la sombra al cancelar la pulsación
-                      setState(() {
-                        _shadowColor = Colors.transparent;
-                      });
-                    },
-                    // ignore: sort_child_properties_last
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        decoration: _currentIndex == index
+                            ? const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xffFBD8BA),
+                                  ),
+                                ],
+                              )
+                            : null,
+                        width: 66,
+                        height: 32,
+                        child: Icon(
+                          size: 20,
                           widget.icons[index],
-                          color: _currentIndex == index
-                              ? kPrimaryColor
-                              : kIconColor,
+                          color: _currentIndex == index ? const Color(0xffF59847) : kIconColor,
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          widget.routes[index],
-                          style: TextStyle(
-                            color: _currentIndex == index
-                                ? kPrimaryColor
-                                : kIconColor,
-                          ),
+                      ),
+                      Text(
+                        widget.routes[index],
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          color: kIconColor,
                         ),
-                      ],
-                    ),
-
-                    splashColor: _shadowColor,
-                    highlightColor: _shadowColor,
-                    borderRadius: BorderRadius.circular(20),
+                      ),
+                    ],
                   ),
                 ),
               ),
