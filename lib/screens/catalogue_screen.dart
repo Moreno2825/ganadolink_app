@@ -11,7 +11,6 @@ class CatalogueScreen extends StatelessWidget {
        Center(
           child:  Text(
               'Catalogue'
-
             ),
         ),
         
