@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   const SizedBox(
                                     height: 37,
-                                  ),
+                                  ),                                 
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: CustomButton(

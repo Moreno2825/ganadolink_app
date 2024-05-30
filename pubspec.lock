@@ -171,6 +171,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  parallax_cards:
+    dependency: "direct main"
+    description:
+      name: parallax_cards
+      sha256: "6cd751b555bdbce7e6a3a38c1a4f9532d0d2ddcb0c1f85a822691f4c51943335"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path:
     dependency: transitive
     description:
