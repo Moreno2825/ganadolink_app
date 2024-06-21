@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ganadolink_app/utils/constant.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
+import 'package:ganadolink_app/widgets/listview_widget.dart';
 import 'package:parallax_cards/parallax_cards.dart';
 // import 'package:parallax_cards/parallax_cards.dart';
 
@@ -20,20 +19,13 @@ final images = [
   {'image': 'assets/images/vaca_3.png'},
 ];
 
-final List<Map<String, String>> people = [
-  {'firstName': 'John', 'lastName': 'Doe'},
-  {'firstName': 'Jane', 'lastName': 'Smith'},
-  {'firstName': 'Alex', 'lastName': 'Johnson'},
-  // Agrega más personas aquí si es necesario
-];
-
 final imagePaths = images.map((imageMap) => imageMap['image']!).toList();
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Responsive resp = Responsive(context);
-    double myWidth = (resp.widthPercent(85));
+    // double myWidth = (resp.widthPercent(85));
 
     return Scaffold(
       body: GestureDetector(
@@ -41,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: resp.height,
+          width: resp.width,
           padding: const EdgeInsets.only(top: 20, right: 0, left: 20),
           child: Column(
             children: [
@@ -167,7 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(width: 16), // Espacio entre los contenedores
                         Padding(
-                          padding: const EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -232,37 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 400, // Altura fija para el ListView.builder
-                      child: ListView.builder(
-                        itemCount: people.length,
-                        itemBuilder: (context, i) {
-                          return Container(
-                            height: 120,
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                            decoration: BoxDecoration(
-                              color: Color(0xffF1F1F1),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Nombre: ${people[i]['firstName']}',
-                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Apellido: ${people[i]['lastName']}',
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    ///! componente listview
+                    const CustomListview(),
                   ],
                 ),
               ),
@@ -273,3 +238,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
