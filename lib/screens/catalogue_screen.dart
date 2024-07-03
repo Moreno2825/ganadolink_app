@@ -10,7 +10,7 @@ class CatalogueScreen extends StatelessWidget {
       body:
        Center(
           child:  Text(
-              'Catalogue'
+              'Catalogue', style: TextStyle(),
             ),
         ),
         

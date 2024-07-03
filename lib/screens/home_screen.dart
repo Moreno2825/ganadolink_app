@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ganadolink_app/pages/form_page.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
+import 'package:ganadolink_app/widgets/circular_progress_widget.dart';
 import 'package:ganadolink_app/widgets/listview_widget.dart';
 import 'package:parallax_cards/parallax_cards.dart';
 // import 'package:parallax_cards/parallax_cards.dart';
@@ -115,7 +118,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const FormPage(),
+                                ),
+                              );
+                            },
                             child: const Text(
                               'Crear Formulario',
                               style: TextStyle(
@@ -156,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
+                          child:  const MyCircularProgress(),
                         ),
                         const SizedBox(width: 16), // Espacio entre los contenedores
                         Padding(
@@ -226,6 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+
                     ///! componente listview
                     const CustomListview(),
                   ],
@@ -238,5 +250,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 
