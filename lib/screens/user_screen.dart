@@ -23,6 +23,7 @@ class _UserScreenState extends State<UserScreen> {
             fontFamily: 'Poppins',
           ),
         ),
+        backgroundColor: const Color(0xFFFFFFFF),
         centerTitle: true,
         leading: BackButton(
           onPressed: () {},
@@ -30,24 +31,30 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+        decoration: const BoxDecoration(
+          color: Color(0xFFFFFFFF),
+        ),
+        width: resp.width,
+        height: resp.height,
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: resp.width,
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
               decoration: const BoxDecoration(
                 color: Color(0xFFF1F1F1),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
               ),
               child: const Row(
                 children: [
                   CircleAvatar(
                     radius: 24,
-                    backgroundImage:
-                        NetworkImage('https://randomuser.me/api/portraits/lego/1.jpg'),
+                    backgroundImage: NetworkImage(
+                        'https://randomuser.me/api/portraits/lego/1.jpg'),
                     backgroundColor: Colors.transparent,
                   ),
                   SizedBox(width: 16),
@@ -76,7 +83,7 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             const SizedBox(
-              height: 14,
+              height: 24,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,6 +112,69 @@ class _UserScreenState extends State<UserScreen> {
                   child: const Text('Editar'),
                 )
               ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+              decoration: const BoxDecoration(
+                color: Color(0xFFF1F1F1),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: const Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.phone),
+                        SizedBox(width: 24),
+                        Text('+ 1 555-453-3423'),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Color(0xFFD9D9D9),
+                    thickness: 0.5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.email),
+                        SizedBox(width: 24),
+                        Text('marianatrujillo@gmail.com')
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Color(0xFFD9D9D9),
+                    thickness: 0.5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.calendar_month),
+                        SizedBox(width: 24),
+                        Text('22 Mayo, 2003')
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             const Text(
               'Configuración',
