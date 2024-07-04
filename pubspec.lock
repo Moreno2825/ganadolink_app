@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -65,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: d0f0d49112f2f4b192481c16d05b6418bd7820e021e265a3c22db98acf7ed7fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.68.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -167,10 +183,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136"
+      sha256: d584fa6707a52763a52446f02cc621b077888fb63b93bbcb1143a7be5a0c0c04
       url: "https://pub.dev"
     source: hosted
-    version: "1.12.0"
+    version: "1.11.0"
   path:
     dependency: transitive
     description:
@@ -195,6 +211,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
+  responsive_grid:
+    dependency: "direct main"
+    description:
+      name: responsive_grid
+      sha256: "852b4d46ae4a530e0d54a1dc59964f3d2cd8d6ca1f6fc4e5790cc0580e367e24"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.4"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ganadolink_app/pages/login_page.dart';
 import 'package:ganadolink_app/pages/splash_page.dart';
-import 'package:ganadolink_app/components/screens/catalogue_screen.dart';
-import 'package:ganadolink_app/components/screens/home_screen.dart';
-import 'package:ganadolink_app/components/screens/user_screen.dart';
+import 'package:ganadolink_app/screens/catalogue_screen.dart';
+import 'package:ganadolink_app/screens/home_screen.dart';
+import 'package:ganadolink_app/screens/user_screen.dart';
 
 void main() {
   runApp(MaterialApp(

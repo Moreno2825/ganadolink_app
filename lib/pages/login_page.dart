@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ganadolink_app/components/custom_button.dart';
 import 'package:ganadolink_app/components/custom_text_field.dart';
@@ -160,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   const SizedBox(
                                     height: 37,
-                                  ),
+                                  ),                                 
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: CustomButton(
