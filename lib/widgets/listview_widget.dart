@@ -95,6 +95,7 @@ class _CustomListviewState extends State<CustomListview> {
                     )
                   ],
                 ),
+                
                 Text(
                   '${people[i]['animal']}',
                   style: const TextStyle(
@@ -105,6 +106,7 @@ class _CustomListviewState extends State<CustomListview> {
                 ),
                 Row(
                   children: [
+                    
                     const Icon(
                       Icons.location_on,
                       color: Color(0xff9a9a9a),

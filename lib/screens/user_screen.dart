@@ -44,8 +44,7 @@ class _UserScreenState extends State<UserScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
                 decoration: const BoxDecoration(
                   color: Color(0xFFF9F9F9),
                   borderRadius: BorderRadius.all(
@@ -56,8 +55,8 @@ class _UserScreenState extends State<UserScreen> {
                   children: [
                     CircleAvatar(
                       radius: 24,
-                      backgroundImage: NetworkImage(
-                          'https://randomuser.me/api/portraits/lego/1.jpg'),
+                      backgroundImage:
+                          NetworkImage('https://randomuser.me/api/portraits/lego/1.jpg'),
                       backgroundColor: Colors.transparent,
                     ),
                     SizedBox(width: 16),
@@ -102,12 +101,11 @@ class _UserScreenState extends State<UserScreen> {
                   TextButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      foregroundColor:
-                          WidgetStateProperty.all(const Color(0xFF0F4CA9)),
-                      textStyle: WidgetStateProperty.all(
+                      foregroundColor: MaterialStateProperty.all(Colors.blue),
+                      textStyle: MaterialStateProperty.all(
                         const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'Poppins',
                         ),
                       ),
@@ -120,8 +118,7 @@ class _UserScreenState extends State<UserScreen> {
                 height: 16,
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
                 decoration: const BoxDecoration(
                   color: Color(0xFFF9F9F9),
                   borderRadius: BorderRadius.all(
@@ -213,8 +210,7 @@ class _UserScreenState extends State<UserScreen> {
                 height: 24,
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 8),
                 decoration: const BoxDecoration(
                   color: Color(0xFFF9F9F9),
                   borderRadius: BorderRadius.all(
@@ -290,8 +286,7 @@ class _UserScreenState extends State<UserScreen> {
                 height: 40,
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
                 decoration: const BoxDecoration(
                   color: Color(0xFFF9F9F9),
                   borderRadius: BorderRadius.all(
