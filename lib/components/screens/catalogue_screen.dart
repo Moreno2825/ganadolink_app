@@ -1,8 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ganadolink_app/components/search_bar.dart';
+import 'package:ganadolink_app/components/square_button.dart';
+import 'package:ganadolink_app/utils/constant.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ganadolink_app/widgets/listview_widget.dart';
 
 class CatalogueScreen extends StatefulWidget {
   const CatalogueScreen({super.key});
@@ -12,124 +16,89 @@ class CatalogueScreen extends StatefulWidget {
 }
 
 class _CatalogueScreenState extends State<CatalogueScreen> {
-
-
   @override
   Widget build(BuildContext context) {
-        Responsive resp = Responsive(context);
-    double myWidth = (resp.widthPercent(85));
-      
-    return  Scaffold(
-             appBar: AppBar(
-              
-              title: Text("Catalogue",
-              style: TextStyle(
-                fontWeight: FontWeight.bold, 
-              ),),
-            
-              centerTitle: true,
-             ),
-    
-      body: ScrollConfiguration(behavior:  ScrollConfiguration.of(context).copyWith(
-           dragDevices: {
-            PointerDeviceKind.touch,
-            PointerDeviceKind.mouse,
-          },
-      ), child: GestureDetector(
-            onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-            child: Container(
-            height: resp.height,
-            width: resp.width,
-            padding: const EdgeInsets.all(24),
-              child: Column(
-
+    Responsive resp = Responsive(context);
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Catalogue",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
+            child: GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
+                child: Container(
+                  height: resp.height,
+                  /*   padding: const EdgeInsets.all(24), */
+                  child: Stack(
+                    children: [
+                      Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                   Expanded(
-              flex: 4, // Ocupa 2/5 del espacio disponible en el Row
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                     color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Center(
-                  child: Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Icon( 
-                         size: 15,
-                         
-                        FontAwesomeIcons.search, color: Colors.grey),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          style: TextStyle(color: Colors.grey),
-                          decoration: InputDecoration(
-                            hintText: 'Buscar...',
-                            hintStyle: TextStyle(color: Colors.grey.withOpacity(0.7)),
-                            border: InputBorder.none,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Row(
+                            children: [
+                              // ignore: deprecated_member_use
+                              MySearchBar(
+                                  backgroundColor: Colors.grey.shade200,
+                                  // ignore: deprecated_member_use
+                                  icon: FontAwesomeIcons.search,
+                                  iconSize: 15,
+                                  iconColor: Colors.grey,
+                                  textFieldColor: Colors.grey,
+                                  hintText: 'Buscar...',
+                                  hintTextColor: Colors.grey),
+                              const SizedBox(width: 10),
+                              SquareButton(
+                                  onTap: () {
+                                    print(resp.height);
+                                  },
+                                  iconSize: 25,
+                                  icon: FontAwesomeIcons.qrcode,
+                                  iconColor: backgroundColorBlue,
+                                  backgroundColor: Colors.grey.shade200),
+                              const SizedBox(width: 10),
+                              SquareButton(
+                                  onTap: () {},
+                                  iconSize: 25,
+                                  icon: FontAwesomeIcons.download,
+                                  iconColor: backgroundColorBlue,
+                                  backgroundColor: Colors.grey.shade200),
+                            ],
                           ),
                         ),
-                      ),
+                         const Padding(
+                          padding:  EdgeInsets.only(left: 15.0),
+                          child: CustomListview(height: 550,),
+                        ),
+                      ],
+                      
+                                          ),
+                      Positioned( bottom: 20, // Ajusta la posición del botón según sea necesario
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Acción al presionar el botón
+                  print('Botón presionado');
+                },
+                child: Text('Botón'),
+              ),)
                     ],
                   ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            // Contenedor 2
-            Expanded(
-              flex: 1, // Ocupa 1/5 del espacio disponible en el Row
-              child: Container(
-                decoration: BoxDecoration(
-                     color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10)
-
-                ),
-                height: 50,
-              
-                child: Center(
-                  child:  Icon( 
-                         size: 25,
-                         
-                        FontAwesomeIcons.qrcode, color: Colors.blue),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              flex: 1, // Ocupa 1/5 del espacio disponible en el Row
-              child: Container(
-                decoration: BoxDecoration(
-                     color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10)
-
-                ),
-                height: 50,
-              
-                child: Center(
-                  child:  Icon( 
-                         size: 25,
-                         
-                        FontAwesomeIcons.download, color: Colors.blue),
-                ),
-              ),
-            ),
-
-                        ],
-                      )
-                    ],
-
-              ),
-            )
-
-      ))
-        
-      );
+                ))));
   }
 }
