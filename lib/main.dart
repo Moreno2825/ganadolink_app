@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ganadolink_app/screens/detail_screen.dart';
 import 'package:ganadolink_app/pages/login_page.dart';
+import 'package:ganadolink_app/pages/more_animals_page.dart';
 import 'package:ganadolink_app/pages/splash_page.dart';
-import 'package:ganadolink_app/components/screens/catalogue_screen.dart';
-import 'package:ganadolink_app/components/screens/home_screen.dart';
-import 'package:ganadolink_app/components/screens/user_screen.dart';
+import 'package:ganadolink_app/screens/catalogue_screen.dart';
+import 'package:ganadolink_app/screens/home_screen.dart';
+import 'package:ganadolink_app/screens/user_screen.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -12,6 +15,10 @@ void main() {
       '/catalogue_screen': (context) => const CatalogueScreen(),
       '/users_screen': (context) => const UserScreen(),
       '/Login': (context) => const LoginPage(),
+       '/Details': (context) => const DetailScreen(),
+        '/moreAnimals': (context) => const MoreAnimals(),
+
+
     },
     debugShowCheckedModeBanner: false,
     home: const SplashPage(),

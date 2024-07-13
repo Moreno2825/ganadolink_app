@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class SquareButton extends StatefulWidget {
   final VoidCallback onTap;
   final int flex;
+  final double width;
   final double iconSize;
   final IconData icon;
   final Color iconColor;
@@ -11,10 +12,11 @@ class SquareButton extends StatefulWidget {
   const SquareButton({
     Key? key,
     required this.onTap,
-    this.flex = 1,
+    this.flex = 0,
     required this.iconSize,
     required this.icon,
-    required this.iconColor, required this.backgroundColor,
+    required this.iconColor,
+    required this.backgroundColor,  this.width = 50,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class _SquareButtonState extends State<SquareButton> {
                 color: widget.backgroundColor,
                 borderRadius: BorderRadius.circular(10)),
             height: 50,
+            width: widget.width,
             child: Center(
               child: Icon(
                 widget.icon,

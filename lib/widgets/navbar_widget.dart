@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ganadolink_app/components/screens/catalogue_screen.dart';
-import 'package:ganadolink_app/components/screens/home_screen.dart';
-import 'package:ganadolink_app/components/screens/user_screen.dart';
+import 'package:ganadolink_app/screens/catalogue_screen.dart';
+import 'package:ganadolink_app/screens/home_screen.dart';
+import 'package:ganadolink_app/screens/user_screen.dart';
 
 import 'package:ganadolink_app/utils/constant.dart';
 
