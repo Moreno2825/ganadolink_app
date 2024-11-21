@@ -11,3 +11,6 @@ const Color kIconColor = Color(0xff353535);
 bool responsiveScreenOk = true;
 double WIDTH_MIN = 300;
 double HEIGHT_MIN = 500;
+
+///! WS
+const ws = 'http://localhost:3000/api/';

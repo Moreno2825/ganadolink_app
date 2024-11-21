@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ganadolink_app/components/custom_button.dart';
 import 'package:ganadolink_app/components/custom_progress_form.dart';
+import 'package:ganadolink_app/components/custom_select.dart';
 import 'package:ganadolink_app/components/custom_text_field.dart';
+import 'package:ganadolink_app/dtos/requests/especie.dart';
+import 'package:ganadolink_app/dtos/requests/raza.dart';
+import 'package:ganadolink_app/dtos/responses/especie_response.dart';
+import 'package:ganadolink_app/dtos/responses/raza_response.dart';
 import 'package:ganadolink_app/extensions/space_exs.dart';
 import 'package:ganadolink_app/utils/form_validate_functions.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
@@ -26,6 +32,10 @@ class _FormPageState extends State<FormPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController domicilioController = TextEditingController();
   TextEditingController municipioController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
+  TextEditingController sexoController = TextEditingController();
+  TextEditingController areteController = TextEditingController();
+  TextEditingController pesoController = TextEditingController();
 
   ///! ---------------------------------------------------------------------------------------------
   ///! FOCUS NODE
@@ -33,6 +43,11 @@ class _FormPageState extends State<FormPage> {
   FocusNode nameFocusNode = FocusNode();
   FocusNode domicilioFocusNode = FocusNode();
   FocusNode municipioFocusNode = FocusNode();
+  FocusNode especieFocusNode = FocusNode();
+  FocusNode sexoFocusNode = FocusNode();
+  FocusNode colorFocusNode = FocusNode();
+  FocusNode areteFocusNode = FocusNode();
+  FocusNode pesoFocusNode = FocusNode();
 
   ///! ---------------------------------------------------------------------------------------------
   ///! FOCUS NODE
@@ -41,6 +56,37 @@ class _FormPageState extends State<FormPage> {
   GlobalKey nameKey = GlobalKey();
   GlobalKey domicilioKey = GlobalKey();
   GlobalKey municipioKey = GlobalKey();
+  GlobalKey colorKey = GlobalKey();
+  GlobalKey sexoKey = GlobalKey();
+  GlobalKey areteKey = GlobalKey();
+  GlobalKey pesoKey = GlobalKey();
+
+  Especie? selectedEspecie;
+  List<Especie> especies = [];
+
+  Raza? selectedRaza;
+  List<Raza> razas = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Llamada para cargar las especies
+    fetchEspecies().then((data) {
+      setState(() {
+        especies = data;
+      });
+    }).catchError((error) {
+      print(error);
+    });
+    // Llamada para cargar las razas
+    fetchRazas().then((data) {
+      setState(() {
+        razas = data;
+      });
+    }).catchError((error) {
+      print(error);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,28 +112,6 @@ class _FormPageState extends State<FormPage> {
             Expanded(
               child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const ProgressForm(
-                        text: 'Generales',
-                        icon: FontAwesomeIcons.one,
-                        color: Color(0xff00B200),
-                      ),
-                      12.w,
-                      const ProgressForm(
-                        text: 'Ganado',
-                        icon: FontAwesomeIcons.two,
-                      ),
-                      12.w,
-                      const ProgressForm(
-                        text: 'Vehículo',
-                        icon: FontAwesomeIcons.three,
-                        color: Color(0xffacacac),
-                      ),
-                      12.w,
-                    ],
-                  ),
                   15.h,
                   SizedBox(
                     width: myWidth,
@@ -101,174 +125,68 @@ class _FormPageState extends State<FormPage> {
                                 fontFamily: 'Poppins', fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           12.h,
-                          const Text(
-                            'Especie a movilizar',
-                            style: TextStyle(
-                                fontFamily: 'Poppins', fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                          12.h,
                           ResponsiveGridRow(
                             children: [
                               ResponsiveGridCol(
                                 lg: 6,
-                                child: SizedBox(
-                                  height: 20,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                        value: selected,
-                                        activeColor: Colors.blue,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selected = value!;
-                                          });
-                                        },
-                                      ),
-                                      const Text('Bovino'),
-                                    ],
-                                  ),
+                                child: MyComboBoxFilterV3(
+                                  listOptions: especies,
+                                  selectedItem: selectedEspecie,
+                                  labelText: 'Especie *',
+                                  fontSize: 13,
+                                  fontSizeLabel: 13,
+                                  validator: (value) {
+                                    return FormsValidate.select(value, 'Seleccionar especie');
+                                  },
+                                  focusNode: especieFocusNode,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedEspecie = value;
+                                    });
+                                  },
                                 ),
                               ),
                               ResponsiveGridCol(
                                 lg: 6,
-                                child: SizedBox(
-                                  height: 20,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                        value: selected,
-                                        activeColor: Colors.blue,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selected = value!;
-                                          });
-                                        },
-                                      ),
-                                      const Text('Porcino'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              ResponsiveGridCol(
-                                lg: 6,
-                                child: SizedBox(
-                                  height: 20,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                        value: selected,
-                                        activeColor: Colors.blue,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selected = value!;
-                                          });
-                                        },
-                                      ),
-                                      const Text('Aviar'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              ResponsiveGridCol(
-                                lg: 6,
-                                child: SizedBox(
-                                  height: 20,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                        value: selected,
-                                        activeColor: Colors.blue,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selected = value!;
-                                          });
-                                        },
-                                      ),
-                                      const Text('Otro'),
-                                    ],
-                                  ),
+                                child: MyComboBoxFilterV3(
+                                  listOptions: razas,
+                                  selectedItem: selectedRaza,
+                                  labelText: 'Raza *',
+                                  fontSize: 13,
+                                  fontSizeLabel: 13,
+                                  validator: (value) {
+                                    return FormsValidate.select(value, 'Seleccionar especie');
+                                  },
+                                  focusNode: especieFocusNode,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedRaza = value;
+                                    });
+                                  },
                                 ),
                               ),
                             ],
                           ),
                           12.h,
                           const Text(
-                            'Datos del remitente',
+                            'DATOS GENERALES',
                             style: TextStyle(
-                                fontFamily: 'Poppins', fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                          ResponsiveGridRow(
-                            children: [
-                              ResponsiveGridCol(
-                                lg: 6,
-                                child: CustomTextField(
-                                  label: 'Nombre',
-                                  isEnable: false,
-                                  floatingLabel: false,
-                                  maxLength: 40,
-                                  focusNode: nameFocusNode,
-                                  textEditingController: nameController,
-                                  validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Nombre');
-                                  },
-                                  onChanged: (text) {},
-                                ),
-                              ),
-                              ResponsiveGridCol(
-                                lg: 6,
-                                child: CustomTextField(
-                                  label: 'Domicilio',
-                                  isEnable: false,
-                                  floatingLabel: false,
-                                  maxLength: 40,
-                                  focusNode: domicilioFocusNode,
-                                  textEditingController: domicilioController,
-                                  validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Dirección');
-                                  },
-                                  onChanged: (text) {},
-                                ),
-                              ),
-                              ResponsiveGridCol(
-                                lg: 6,
-                                child: CustomTextField(
-                                  label: 'Municipio',
-                                  isEnable: false,
-                                  floatingLabel: false,
-                                  maxLength: 40,
-                                  focusNode: municipioFocusNode,
-                                  textEditingController: municipioController,
-                                  validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Municipio');
-                                  },
-                                  onChanged: (text) {},
-                                ),
-                              ),
-                            ],
+                                fontFamily: 'Poppins', fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           12.h,
-                          const Text(
-                            'Datos del destinatario',
-                            style: TextStyle(
-                                fontFamily: 'Poppins', fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
                           ResponsiveGridRow(
                             children: [
                               ResponsiveGridCol(
                                 lg: 6,
                                 child: CustomTextField(
-                                  label: 'Nombre',
+                                  label: 'Peso a KG',
                                   isEnable: false,
                                   floatingLabel: false,
                                   maxLength: 40,
-                                  focusNode: nameFocusNode,
-                                  textEditingController: nameController,
+                                  focusNode: pesoFocusNode,
+                                  textEditingController: pesoController,
                                   validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Nombre');
+                                    return FormsValidate.inputString(text, 'Especificar Peso');
                                   },
                                   onChanged: (text) {},
                                 ),
@@ -276,14 +194,14 @@ class _FormPageState extends State<FormPage> {
                               ResponsiveGridCol(
                                 lg: 6,
                                 child: CustomTextField(
-                                  label: 'Domicilio',
+                                  label: 'Sexo',
                                   isEnable: false,
                                   floatingLabel: false,
                                   maxLength: 40,
-                                  focusNode: domicilioFocusNode,
-                                  textEditingController: domicilioController,
+                                  focusNode: sexoFocusNode,
+                                  textEditingController: sexoController,
                                   validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Dirección');
+                                    return FormsValidate.inputString(text, 'Especificar Sexo');
                                   },
                                   onChanged: (text) {},
                                 ),
@@ -291,19 +209,41 @@ class _FormPageState extends State<FormPage> {
                               ResponsiveGridCol(
                                 lg: 6,
                                 child: CustomTextField(
-                                  label: 'Municipio',
+                                  label: 'Color',
                                   isEnable: false,
                                   floatingLabel: false,
                                   maxLength: 40,
-                                  focusNode: municipioFocusNode,
-                                  textEditingController: municipioController,
+                                  focusNode: colorFocusNode,
+                                  textEditingController: colorController,
                                   validator: (text) {
-                                    return FormsValidate.inputString(text, 'Especificar Municipio');
+                                    return FormsValidate.inputString(text, 'Especificar Color');
+                                  },
+                                  onChanged: (text) {},
+                                ),
+                              ),
+                              ResponsiveGridCol(
+                                lg: 6,
+                                child: CustomTextField(
+                                  label: 'Arete Siniiga',
+                                  isEnable: false,
+                                  floatingLabel: false,
+                                  maxLength: 40,
+                                  focusNode: areteFocusNode,
+                                  textEditingController: areteController,
+                                  validator: (text) {
+                                    return FormsValidate.inputString(
+                                        text, 'Especificar Arete Siniiga');
                                   },
                                   onChanged: (text) {},
                                 ),
                               ),
                             ],
+                          ),
+                          20.h,
+                          CustomButton(
+                            label: 'Guardar',
+                            size: 345,
+                            onPressed: () {},
                           ),
                         ],
                       ),

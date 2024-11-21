@@ -1,0 +1,19 @@
+{
+    "razas":[
+        {
+            "id": 1,
+            "nombre": "Suizos",
+            "b_Activo": true
+        },
+        {
+            "id": 2,
+            "nombre": "Cimental",
+            "b_Activo": true
+        },
+        {
+            "id": 3,
+            "nombre": "Pinto",
+            "b_Activo": true
+        }
+    ]
+}   

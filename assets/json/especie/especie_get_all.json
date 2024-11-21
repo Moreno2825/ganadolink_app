@@ -1,0 +1,19 @@
+{
+    "especies":[
+        {
+            "id": 1,
+            "nombre": "Bovino",
+            "b_Activo": true
+        },
+        {
+            "id": 2,
+            "nombre": "Porcino",
+            "b_Activo": true
+        },
+        {
+            "id": 3,
+            "nombre": "Aviar",
+            "b_Activo": true
+        }
+    ]
+}   
