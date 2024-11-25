@@ -13,4 +13,4 @@ double WIDTH_MIN = 300;
 double HEIGHT_MIN = 500;
 
 ///! WS
-const ws = 'http://localhost:3000/api/';
+const ws = 'https://api-ganadolink.onrender.com/api/';

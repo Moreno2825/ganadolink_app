@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:ganadolink_app/dtos/requests/especie.dart';
 import 'package:ganadolink_app/utils/constant.dart';
+import 'package:ganadolink_app/dtos/requests/especie.dart';
 
 // local
 Future<List<Especie>> loadEspecies() async {

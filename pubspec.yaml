@@ -42,6 +42,7 @@ dependencies:
   responsive_grid: ^2.4.4
   dropdown_search: ^5.0.6
   http: ^1.2.2
+  quickalert: ^1.1.0
   #parallax_cards: ^1.0.1
 
 dev_dependencies:

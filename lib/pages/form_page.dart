@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ganadolink_app/components/custom_button.dart';
 import 'package:ganadolink_app/components/custom_progress_form.dart';
 import 'package:ganadolink_app/components/custom_select.dart';
 import 'package:ganadolink_app/components/custom_text_field.dart';
+import 'package:ganadolink_app/dtos/requests/diet.dart';
 import 'package:ganadolink_app/dtos/requests/especie.dart';
+import 'package:ganadolink_app/dtos/requests/motivo.dart';
 import 'package:ganadolink_app/dtos/requests/raza.dart';
+import 'package:ganadolink_app/dtos/responses/diet_response.dart';
 import 'package:ganadolink_app/dtos/responses/especie_response.dart';
+import 'package:ganadolink_app/dtos/responses/motivo_response.dart';
 import 'package:ganadolink_app/dtos/responses/raza_response.dart';
 import 'package:ganadolink_app/extensions/space_exs.dart';
 import 'package:ganadolink_app/utils/form_validate_functions.dart';
 import 'package:ganadolink_app/utils/responsive.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class FormPage extends StatefulWidget {
@@ -44,6 +49,7 @@ class _FormPageState extends State<FormPage> {
   FocusNode domicilioFocusNode = FocusNode();
   FocusNode municipioFocusNode = FocusNode();
   FocusNode especieFocusNode = FocusNode();
+  FocusNode motivosFocusNode = FocusNode();
   FocusNode sexoFocusNode = FocusNode();
   FocusNode colorFocusNode = FocusNode();
   FocusNode areteFocusNode = FocusNode();
@@ -67,16 +73,33 @@ class _FormPageState extends State<FormPage> {
   Raza? selectedRaza;
   List<Raza> razas = [];
 
+  Motivo? selectedMotivo;
+  List<Motivo> motivos = [];
+
   @override
   void initState() {
     super.initState();
+    initDataLoad();
+  }
+
+  void initDataLoad() {
+    String detectedErrors = '';
+
     // Llamada para cargar las especies
     fetchEspecies().then((data) {
       setState(() {
         especies = data;
       });
     }).catchError((error) {
-      print(error);
+      detectedErrors += 'Error al cargar las especies: $error\n';
+    });
+
+    fetchMotivos().then((data) {
+      setState(() {
+        motivos = data;
+      });
+    }).catchError((error) {
+      detectedErrors += 'Error al cargar los motivos: $error\n';
     });
     // Llamada para cargar las razas
     fetchRazas().then((data) {
@@ -84,7 +107,17 @@ class _FormPageState extends State<FormPage> {
         razas = data;
       });
     }).catchError((error) {
-      print(error);
+      detectedErrors += 'Error al cargar las razas: $error\n';
+    }).whenComplete(() {
+      // Mostrar los errores si existen
+      if (detectedErrors.isNotEmpty) {
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          title: 'Errores detectados',
+          text: detectedErrors.trim(),
+        );
+      }
     });
   }
 
@@ -116,6 +149,7 @@ class _FormPageState extends State<FormPage> {
                   SizedBox(
                     width: myWidth,
                     child: Form(
+                      key: formKeyA,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -127,6 +161,25 @@ class _FormPageState extends State<FormPage> {
                           12.h,
                           ResponsiveGridRow(
                             children: [
+                              ResponsiveGridCol(
+                                lg: 6,
+                                child: MyComboBoxFilterV3(
+                                  listOptions: motivos,
+                                  selectedItem: selectedMotivo,
+                                  labelText: 'Motivo *',
+                                  fontSize: 13,
+                                  fontSizeLabel: 13,
+                                  validator: (value) {
+                                    return FormsValidate.select(value, 'Seleccionar especie');
+                                  },
+                                  focusNode: motivosFocusNode,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedMotivo = value;
+                                    });
+                                  },
+                                ),
+                              ),
                               ResponsiveGridCol(
                                 lg: 6,
                                 child: MyComboBoxFilterV3(
@@ -243,7 +296,9 @@ class _FormPageState extends State<FormPage> {
                           CustomButton(
                             label: 'Guardar',
                             size: 345,
-                            onPressed: () {},
+                            onPressed: () {
+                              saveOnPress();
+                            },
                           ),
                         ],
                       ),
@@ -256,5 +311,57 @@ class _FormPageState extends State<FormPage> {
         ),
       ),
     );
+  }
+
+  void initFields() {
+    selectedMotivo = null;
+    selectedEspecie = null;
+    selectedRaza = null;
+    nameController.clear();
+    domicilioController.clear();
+    municipioController.clear();
+    colorController.clear();
+    sexoController.clear();
+    areteController.clear();
+    pesoController.clear();
+  }
+
+  void saveOnPress() async {
+    final isOk = formKeyA.currentState!.validate();
+
+    if (isOk) {
+      // Construir los datos de la dieta
+      final dietData = {
+        "id_user": "673ec44f803f14389770648c",
+        "id_especie": selectedEspecie?.id ?? '',
+        "id_motivo": selectedMotivo?.id ?? '',
+        "ganado": {
+          "sexo": sexoController.text,
+          "id_raza": selectedRaza?.id ?? '',
+          "color": colorController.text,
+          "peso": pesoController.text,
+          "siniiga": areteController.text,
+        }
+      };
+
+      try {
+        await createDiet(dietData);
+
+        // Mostrar notificación de éxito
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          text: 'Dieta creada exitosamente',
+        );
+        initFields();
+      } catch (error) {
+        // Mostrar notificación de error
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          text: 'Error al crear la dieta: $error',
+        );
+      }
+    }
   }
 }

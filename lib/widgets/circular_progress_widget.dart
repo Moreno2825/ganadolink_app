@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 
-class MyCircularProgress extends StatelessWidget {
+class MyCircularProgress extends StatefulWidget {
+  final int dietsThisWeek;
+  final int dietsToday;
   const MyCircularProgress({
     super.key,
+    required this.dietsThisWeek,
+    required this.dietsToday,
   });
+
+  @override
+  State<MyCircularProgress> createState() => _MyCircularProgressState();
+}
+
+class _MyCircularProgressState extends State<MyCircularProgress> {
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +28,10 @@ class MyCircularProgress extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        const Stack(
+        Stack(
           alignment: Alignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 80,
               height: 80,
               child: CircularProgressIndicator(
@@ -33,8 +43,8 @@ class MyCircularProgress extends StatelessWidget {
               ),
             ),
             Text(
-              '540',
-              style: TextStyle(
+              widget.dietsThisWeek.toString(),
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -44,18 +54,18 @@ class MyCircularProgress extends StatelessWidget {
         const SizedBox(height: 20),
         RichText(
           maxLines: 2,
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: '108 ',
-                style: TextStyle(
+                text: widget.dietsToday.toString(),
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins'),
               ),
-              TextSpan(
-                text: 'guías al día ',
+              const TextSpan(
+                text: ' guías al día ',
                 style: TextStyle(
                     color: Color(0xff8f939a),
                     fontSize: 10,
